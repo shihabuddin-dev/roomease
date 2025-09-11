@@ -8,9 +8,7 @@ export default function AuthButton() {
   if (session) {
     return (
       <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-700">
-          Hi, {session.user ? session.user.name : "User"}
-        </span>
+        <span className="text-sm text-gray-700">Hi, {session.user?.name}</span>
         <button
           onClick={() => signOut()}
           className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
@@ -26,7 +24,7 @@ export default function AuthButton() {
       onClick={() => signIn("google")}
       className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
     >
-      Login with Google
+      Login
     </button>
   )
 }
