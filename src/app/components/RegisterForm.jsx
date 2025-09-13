@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import AuthButton from "./AuthButton";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -34,7 +35,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded shadow space-y-4">
+    <section>  <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded shadow space-y-4">
       <h2 className="text-2xl font-bold mb-2">Register</h2>
       {error && <div className="text-red-600">{error}</div>}
       {success && <div className="text-green-600">{success}</div>}
@@ -73,5 +74,10 @@ export default function RegisterForm() {
         {loading ? "Registering..." : "Register"}
       </button>
     </form>
+      <div className="flex justify-center items-center mt-6">
+
+        <AuthButton />
+      </div>
+    </section>
   );
 }
