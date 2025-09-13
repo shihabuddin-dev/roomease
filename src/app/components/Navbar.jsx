@@ -1,11 +1,10 @@
-"use client";
+"use client"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
-
 
 export default function Navbar() {
     const { data: session } = useSession();
@@ -63,7 +62,7 @@ export default function Navbar() {
                             <div className="relative group cursor-pointer">
                                 {session.user?.image ? (
                                     <img
-                                        src={session.user.image}
+                                        src={session?.user?.image}
                                         alt={session.user.name}
                                         className="w-12 h-12 p-1 rounded-full border-2 border-gray-300"
                                     />

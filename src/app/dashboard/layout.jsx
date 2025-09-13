@@ -41,11 +41,11 @@ export default function DashboardLayout({ children }) {
           <Link href="/dashboard" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
             <FaHome /> Overview
           </Link>
-          <Link href="/dashboard/bookings" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
-            <FaListUl /> Bookings
-          </Link>
           <Link href="/dashboard/properties" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
-            <FaPlusCircle /> Properties
+            <FaPlusCircle />Add Properties
+          </Link>
+          <Link href="/dashboard/bookings" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
+            <FaListUl /> My Bookings
           </Link>
           <Link href="/dashboard/profile" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
             <FaUser /> Profile
