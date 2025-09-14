@@ -1,5 +1,5 @@
 "use client";
-import { FaHome, FaListUl, FaPlusCircle, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaHome, FaListAlt, FaListUl, FaPlusCircle, FaRegListAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
@@ -26,7 +26,7 @@ export default function DashboardLayout({ children }) {
       <aside className={`fixed z-40 inset-y-0 left-0 w-64 bg-white shadow-lg p-6 flex-col gap-6 transform ${drawerOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 lg:flex`}>
         {/* Close button for mobile */}
         <div className="flex items-center justify-between mb-8 lg:mb-8">
-          <div className="text-2xl font-bold text-blue-700">RoomEase</div>
+          <Link href={'/'} className="text-2xl font-bold text-blue-700">RoomEase</Link>
           <button
             className="lg:hidden text-2xl text-gray-500 hover:text-blue-700 p-2 rounded"
             onClick={closeDrawer}
@@ -44,8 +44,11 @@ export default function DashboardLayout({ children }) {
           <Link href="/dashboard/properties" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
             <FaPlusCircle />Add Properties
           </Link>
+          <Link href="/dashboard/my-properties" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
+            <FaListUl /> My Properties
+          </Link>
           <Link href="/dashboard/bookings" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
-            <FaListUl /> My Bookings
+            <FaRegListAlt /> My Bookings
           </Link>
           <Link href="/dashboard/profile" className="flex items-center gap-2 text-gray-700 hover:text-blue-700 font-medium" onClick={closeDrawer}>
             <FaUser /> Profile
