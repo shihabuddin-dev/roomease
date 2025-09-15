@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Add test property to MongoDB",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"require('./lib/mongodb').dbConnect('properties').then(async c => { await c.insertOne({ title: 'Test Property', price: 1000, city: 'Test City', rooms: 2, available: true, description: 'A test property for debugging.', image: '/vercel.svg' }); process.exit(0); })"
+			],
+			"isBackground": false
+		}
+	]
+}

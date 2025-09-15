@@ -1,3 +1,6 @@
+import { NextResponse } from "next/server";
+import { collectionNameObj, dbConnect } from "../../../../lib/mongodb";
+
 export async function GET() {
     try {
         const collection = await dbConnect(collectionNameObj.propertiesCollection);
@@ -7,10 +10,6 @@ export async function GET() {
         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 }
-
-import { NextResponse } from "next/server";
-// import { dbConnect } from "@/lib/mongodb";
-import { collectionNameObj, dbConnect } from "../../../../lib/mongodb";
 
 export async function POST(req) {
     try {
