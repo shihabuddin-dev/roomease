@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { useSession } from "next-auth/react";
+
 
 export default function PropertyDetailsPage() {
   const router = useRouter();
@@ -11,6 +14,7 @@ export default function PropertyDetailsPage() {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { data: session } = useSession();
 
   useEffect(() => {
     async function fetchProperty() {
@@ -129,7 +133,57 @@ export default function PropertyDetailsPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <button className="flex-1 bg-blue-600 border-2 border-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 hover:border-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center">
+                <button
+                  className="flex-1 bg-blue-600 border-2 border-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 hover:border-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center"
+                  onClick={async () => {
+                    if (!session || !session.user) {
+                      Swal.fire({
+                        icon: 'warning',
+                        title: 'Login Required',
+                        text: 'Please login to book this property.',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Login',
+                        customClass: { popup: 'rounded-2xl p-6' },
+                        preConfirm: () => router.push('/login'),
+                      });
+                      return;
+                    }
+                    // Book property API call
+                    try {
+                      const res = await fetch('/api/bookings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          propertyId: property._id,
+                          userEmail: session.user.email,
+                          title: property.title,
+                          price: property.price,
+                          image: property.image,
+                        }),
+                      });
+                      const data = await res.json();
+                      if (data.success) {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Booking Successful!',
+                          text: `Your booking for ${property.title} is confirmed.`,
+                          showConfirmButton: true,
+                          customClass: { popup: 'rounded-2xl p-6' },
+                        });
+                      } else {
+                        throw new Error(data.error || 'Booking failed');
+                      }
+                    } catch (err) {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Booking Failed',
+                        text: err.message,
+                        showConfirmButton: true,
+                        customClass: { popup: 'rounded-2xl p-6' },
+                      });
+                    }
+                  }}
+                >
                   Book Now
                 </button>
                 <button
@@ -187,3 +241,4 @@ export default function PropertyDetailsPage() {
     </section>
   );
 }
+
