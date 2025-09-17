@@ -1,5 +1,33 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+**Live Website:** [https://roomease-sage.vercel.app/](https://roomease-sage.vercel.app/)
+
+## Tech Stack
+
+- **Next.js 15.5.3** (App Router)
+- **React 19.1.0**
+- **React DOM 19.1.0**
+- **Tailwind CSS 4**
+- **MongoDB 6.19.0**
+- **NextAuth.js 4.24.11** (Google OAuth)
+- **@tanstack/react-query 5.87.4**
+- **SweetAlert2 11.23.0** (modals/alerts)
+- **React Icons 5.5.0**
+- **Radix UI (@radix-ui/react-dialog, @radix-ui/react-slot)**
+- **bcryptjs 3.0.2**
+- **class-variance-authority 0.7.1**
+- **clsx 2.1.1**
+- **dotenv 17.2.2**
+- **lucide-react 0.544.0**
+- **react-countup 6.5.3**
+- **react-hot-toast 2.6.0**
+- **recharts 3.2.0**
+- **tailwind-merge 3.3.1**
+- **tailwindcss-animate 1.0.7**
+## Developer
+
+Built by [Shihab Uddin](https://shihab-dev.web.app/)
+- [LinkedIn](https://linkedin.com/in/shihab-dev/)
 ## Getting Started
 
 First, run the development server:
@@ -9,25 +37,8 @@ npm run dev
 # or
 yarn dev
 # or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 

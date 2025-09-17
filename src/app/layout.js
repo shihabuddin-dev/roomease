@@ -15,9 +15,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata = {
-  title: "Roomease Application",
-  description: "Roomease Application for properties booking system application",
+  title: "RoomEase - Find Your Perfect Stay",
+  description: "RoomEase helps you find, book, and manage properties with ease. Discover your next stay today!",
+  openGraph: {
+    title: "RoomEase - Find Your Perfect Stay",
+    description: "RoomEase helps you find, book, and manage properties with ease. Discover your next stay today!",
+    type: "website",
+    images: ["/logo-small.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RoomEase - Find Your Perfect Stay",
+    description: "RoomEase helps you find, book, and manage properties with ease. Discover your next stay today!",
+    images: ["/logo-small.png"],
+  },
 };
 
 export default function RootLayout({ children }) {

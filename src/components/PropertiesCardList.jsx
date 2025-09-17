@@ -3,7 +3,7 @@ import Loading from "@/app/loading";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { useState } from "react";
+import { useState } from "react";
 const queryClient = new QueryClient();
 
 function PropertiesCardListInner() {
@@ -17,22 +17,54 @@ function PropertiesCardListInner() {
       return data.properties;
     },
   });
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const pageSize = 8;
 
   if (isLoading) return <Loading />;
   if (error) return <div className="p-8 text-red-600">{error.message}</div>;
 
   // Conditional: if /browse-listing, show all, else slice
   const isBrowseListing = pathname === "/browse-listing";
-  const propertiesToShow = isBrowseListing ? data : data.slice(0, 4);
+  let propertiesToShow = isBrowseListing ? data : data.slice(0, 4);
   const heading = isBrowseListing ? "All Properties" : "Featured Properties";
+
+  // Filter properties by search term (title or location)
+  if (isBrowseListing && search.trim()) {
+    const term = search.trim().toLowerCase();
+    propertiesToShow = propertiesToShow.filter(
+      (p) =>
+        p.title.toLowerCase().includes(term) ||
+        (p.location && p.location.toLowerCase().includes(term))
+    );
+  }
+
+  // Pagination logic (only for browse-listing)
+  let paginatedProperties = propertiesToShow;
+  let totalPages = 1;
+  if (isBrowseListing) {
+    totalPages = Math.ceil(propertiesToShow.length / pageSize) || 1;
+    paginatedProperties = propertiesToShow.slice((page - 1) * pageSize, page * pageSize);
+  }
 
   return (
     <section className="py-10 px-4 mt-12 max-w-7xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-800 mb-16 tracking-tight drop-shadow-lg">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-800 mb-10 tracking-tight drop-shadow-lg">
         {heading}
       </h2>
+      {isBrowseListing && (
+        <div className="flex justify-center mb-8">
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search by title or location..."
+            className="w-full max-w-md px-4 py-2 border border-blue-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {propertiesToShow.map((p) => (
+        {paginatedProperties.map((p) => (
           <div
             key={p._id}
             className={`relative bg-gradient-to-br from-blue-50 via-white to-red-50 rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-blue-400`}
@@ -78,6 +110,34 @@ function PropertiesCardListInner() {
           </div>
         ))}
       </div>
+      {/* Pagination Controls */}
+      {isBrowseListing && totalPages > 1 && (
+        <div className="flex justify-center items-center gap-2 mt-10">
+          <button
+            className="px-3 py-1 rounded bg-blue-100 text-blue-700 font-semibold disabled:opacity-50"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
+            Prev
+          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={`px-3 py-1 rounded font-semibold ${page === i + 1 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-700"}`}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="px-3 py-1 rounded bg-blue-100 text-blue-700 font-semibold disabled:opacity-50"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </section>
   );
 }
