@@ -3,10 +3,11 @@ import { FaHome, FaListAlt, FaListUl, FaPlusCircle, FaRegListAlt, FaSignOutAlt, 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import Swal from "sweetalert2";
 import { useState } from "react";
 
 export default function DashboardLayout({ children }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const pathname = usePathname();
   const router = useRouter();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -14,11 +15,50 @@ export default function DashboardLayout({ children }) {
   const isDashboardHome = pathname === "/dashboard";
 
   const handleSignOut = async () => {
-    await signOut({ redirect: false });
-    router.push("/");
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel',
+    });
+    if (result.isConfirmed) {
+      await signOut({ redirect: false });
+      await Swal.fire({
+        icon: 'success',
+        title: 'Logged out',
+        text: 'You have been successfully logged out.',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      router.push("/");
+    }
   };
 
   const closeDrawer = () => setDrawerOpen(false);
+
+  // Private route protection
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <span className="text-lg font-semibold text-blue-700">Loading...</span>
+      </div>
+    );
+  }
+  if (!session) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Access Denied',
+      text: 'You must be logged in to access the dashboard.',
+      timer: 1800,
+      showConfirmButton: false,
+    });
+    router.push("/login");
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex bg-gray-50">

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
@@ -26,8 +27,27 @@ export default function Navbar() {
     }, [theme]);
 
     const handleSignOut = async () => {
-        await signOut({ redirect: false });
-        router.push("/");
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, logout',
+            cancelButtonText: 'Cancel',
+        });
+        if (result.isConfirmed) {
+            await signOut({ redirect: false });
+            await Swal.fire({
+                icon: 'success',
+                title: 'Logged out',
+                text: 'You have been successfully logged out.',
+                timer: 1500,
+                showConfirmButton: false,
+            });
+            router.push("/");
+        }
     };
 
     const navLinks = (
@@ -46,7 +66,7 @@ export default function Navbar() {
                     <div className="flex items-center">
                         <Link href="/" className="text-xl font-bold flex items-center">
                             {/* <img className="w-10" src="/logo-small.png" alt="RoomEase" /> */}
-                            <span className="ml-2 block md:hidden lg:block">ROOMEASE</span>
+                             <span className="text-2xl font-extrabold tracking-tight ml-2 block md:hidden lg:block">RoomEase</span>
                         </Link>
                     </div>
                     {/* Desktop Nav */}

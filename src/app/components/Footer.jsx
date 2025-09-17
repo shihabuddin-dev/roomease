@@ -9,7 +9,7 @@ export default function Footer() {
   }, []);
 
   return (
-  <footer className="w-full bg-gradient-to-br from-blue-50 via-yellow-50 to-blue-100 border-t border-gray-200">
+    <footer className="w-full bg-gradient-to-br from-blue-50 via-yellow-50 to-blue-100 border-t border-gray-200">
       <div className="max-w-[1440px] mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Branding */}
@@ -17,16 +17,16 @@ export default function Footer() {
             <span className="text-2xl font-extrabold tracking-tight text-primary mb-2">RoomEase</span>
             <span className="text-sm text-secondary">Find your perfect stay, effortlessly.</span>
           </div>
-          
+
           {/* Navigation */}
           <div className="flex gap-6 text-sm font-medium">
             <a href="/" className="text-secondary hover:text-primary transition-colors">Home</a>
-            <a href="/dashboard/properties" className="text-secondary hover:text-primary transition-colors">Properties</a>
+            <a href="/browse-listing" className="text-secondary hover:text-primary transition-colors">Properties</a>
             <a href="/dashboard/bookings" className="text-secondary hover:text-primary transition-colors">Bookings</a>
-            <a href="/faq" className="text-secondary hover:text-primary transition-colors">FAQ</a>
+            <a href="/" className="text-secondary hover:text-primary transition-colors">FAQ</a>
             <a href="/login" className="text-secondary hover:text-primary transition-colors">Login</a>
           </div>
-          
+
           {/* Social Icons */}
           <div className="flex gap-3">
             <a href="https://facebook.com/shihab.dev" aria-label="Facebook" className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors">
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      
+
       {/* Copyright */}
       <div className="border-t border-gray-200 text-center py-4 text-xs text-secondary bg-background">
         &copy; {year} <span className="font-bold text-primary">RoomEase</span>. All rights reserved.
