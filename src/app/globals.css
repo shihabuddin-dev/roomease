@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+    /* globals.css or a dedicated CSS module */
+.active-link {
+  color: #011a50 !important; /* Tailwind blue-600 */
+  font-weight: 700 !important;
+}
+
+.inactive-link {
+  color: #6b7280 !important; /* Tailwind gray-500 */
+  font-weight: 400 !important;
+}

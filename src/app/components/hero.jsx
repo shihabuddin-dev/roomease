@@ -92,7 +92,7 @@ export default function Hero() {
               <div className="absolute -top-3 -right-3 w-12 h-12 bg-yellow-400 rounded-2xl shadow-lg flex items-center justify-center animate-bounce">
                 <span className="text-white font-bold text-lg">★</span>
               </div>
-              <div className="absolute -bottom-3 -left-3 w-10 h-10 bg-green-400 rounded-2xl shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '1s' }}>
+              <div className="absolute -bottom-3 -left-3 w-12 h-12 bg-green-400 rounded-2xl shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '1s' }}>
                 <span className="text-white font-bold text-base">✓</span>
               </div>
             </div>
