@@ -33,11 +33,8 @@ export default function LoginForm() {
 
   return (
     <div className="bg-gray-50">
-      <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-  <div className="max-w-6xl w-full">
-          <a href="/">
-            <img src="https://readymadeui.com/readymadeui.svg" alt="logo" className="w-40 mb-8 mx-auto block" />
-          </a>
+      <div className="mt-16 min-h-screen flex flex-col items-center justify-center py-6 px-4">
+        <div className="max-w-6xl w-full">
           <div className="p-6 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm">
             <h1 className="text-slate-900 text-center text-3xl font-semibold">Log in</h1>
             <form className="mt-12 space-y-6" onSubmit={handleSubmit}>

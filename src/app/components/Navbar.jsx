@@ -60,13 +60,13 @@ export default function Navbar() {
     );
 
     return (
-            <nav className={`fixed w-full top-0 z-50 bg-white border-b transition-colors duration-300 ${scrolled ? "shadow-md" : ""}`}>
+            <nav className={`fixed w-full top-0 z-50 bg-white border-b border-gray-200 transition-colors duration-300 ${scrolled ? "shadow-md" : ""}`}>
                 <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
                     {/* Logo */}
                     <div className="flex items-center">
                         <Link href="/" className="text-xl font-bold flex items-center">
                             {/* <img className="w-10" src="/logo-small.png" alt="RoomEase" /> */}
-                             <span className="text-2xl font-extrabold tracking-tight ml-2 block md:hidden lg:block">RoomEase</span>
+                             <span className="text-2xl font-extrabold tracking-tight ml-2 block md:hidden lg:block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-yellow-500">RoomEase</span>
                         </Link>
                     </div>
                     {/* Desktop Nav */}

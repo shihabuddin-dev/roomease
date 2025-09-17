@@ -10,16 +10,16 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-gradient-to-br from-blue-50 via-yellow-50 to-blue-100 border-t border-gray-200">
-      <div className="max-w-[1440px] mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Branding */}
           <div className="flex flex-col items-center md:items-start">
-            <span className="text-2xl font-extrabold tracking-tight text-primary mb-2">RoomEase</span>
+            <span className="text-2xl font-extrabold tracking-tight text-primary mb-2 block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-yellow-500">RoomEase</span>
             <span className="text-sm text-secondary">Find your perfect stay, effortlessly.</span>
           </div>
 
           {/* Navigation */}
-          <div className="flex gap-6 text-sm font-medium">
+          <div className="flex gap-4 md:gap-6 text-sm font-medium">
             <a href="/" className="text-secondary hover:text-primary transition-colors">Home</a>
             <a href="/browse-listing" className="text-secondary hover:text-primary transition-colors">Properties</a>
             <a href="/dashboard/bookings" className="text-secondary hover:text-primary transition-colors">Bookings</a>

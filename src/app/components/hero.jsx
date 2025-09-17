@@ -4,7 +4,7 @@ import CountUp from "react-countup";
 
 export default function Hero() {
   return (
-    <section className="mt-8 min-h-[60vh] relative w-full bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
+    <section className="mt-12 min-h-[60vh] relative w-full bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-red-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
@@ -28,7 +28,7 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="text-xl lg:text-2xl text-gray-600 mb-6 leading-relaxed max-w-2xl lg:max-w-none">
+            <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-2xl lg:max-w-none">
               Book, manage, and discover verified properties across Bangladesh. Secure, simple, and trusted by thousands of users.
             </p>
 
