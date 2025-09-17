@@ -27,7 +27,7 @@ export default function DashboardOverview() {
         {/* Pie Chart */}
         <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
           <h3 className="text-lg font-semibold mb-4">Room Status</h3>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={270}>
             <PieChart>
               <Pie
                 data={pieData}

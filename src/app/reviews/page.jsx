@@ -1,9 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 
-
-import Image from "next/image";
-
 export default function ReviewsPage() {
     const testimonials = [
         {
@@ -187,11 +184,9 @@ export default function ReviewsPage() {
                         key={i + (page - 1) * perPage}
                         className="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center border border-blue-100 hover:scale-105 transition-transform duration-300"
                     >
-                        <Image
-                            src={t.image}
-                            alt={t.name}
-                            width={80}
-                            height={80}
+                        <img
+                            src={t?.image}
+                            alt={t?.name}
                             className="w-20 h-20 rounded-full object-cover border-4 border-yellow-300 mb-4 shadow"
                         />
                         <blockquote className="italic text-gray-700 mb-4 leading-relaxed">
