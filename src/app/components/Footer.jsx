@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="flex gap-4 md:gap-6 text-sm font-medium">
             <a href="/" className="text-secondary hover:text-primary transition-colors">Home</a>
             <a href="/browse-listing" className="text-secondary hover:text-primary transition-colors">Properties</a>
-            <a href="/dashboard/bookings" className="text-secondary hover:text-primary transition-colors">Bookings</a>
+            <a href="/reviews" className="text-secondary hover:text-primary transition-colors">Bookings</a>
             <a href="/" className="text-secondary hover:text-primary transition-colors">FAQ</a>
             <a href="/login" className="text-secondary hover:text-primary transition-colors">Login</a>
           </div>
