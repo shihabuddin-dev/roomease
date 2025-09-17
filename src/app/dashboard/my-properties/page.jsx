@@ -1,5 +1,6 @@
 
 "use client";
+import Loading from "@/app/loading";
 import { useQuery, QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import Swal from 'sweetalert2';
@@ -61,7 +62,7 @@ function PropertiesTable() {
     <section className="p-8">
       <h1 className="text-3xl font-bold mb-6 text-blue-700">All Properties</h1>
       {isLoading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : error ? (
         <div className="text-red-600">{error.message}</div>
       ) : (
@@ -94,7 +95,7 @@ function PropertiesTable() {
                   </td>
                   <td className="px-6 py-3 border-b border-yellow-200 text-center rounded-r-md">
                     <div className="flex gap-2 justify-center">
-                      
+
                       <Link href={`/dashboard/my-properties/edit/${p._id}`} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-blue-900 rounded-full shadow text-xs font-semibold transition" title="Update">
                         Update
                       </Link>
