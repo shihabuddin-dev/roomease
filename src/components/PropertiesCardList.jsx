@@ -1,6 +1,8 @@
 "use client";
+import Loading from "@/app/loading";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+// import { useState } from "react";
 const queryClient = new QueryClient();
 
 function PropertiesCardListInner() {
@@ -14,42 +16,56 @@ function PropertiesCardListInner() {
     },
   });
 
-  if (isLoading) return <div className="p-8">Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div className="p-8 text-red-600">{error.message}</div>;
 
   return (
-    <section className="py-10 px-4 mt-24">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-800 mb-8 tracking-tight drop-shadow-lg">
+    <section className="py-10 px-4 mt-12 max-w-7xl mx-auto">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-800 mb-16 tracking-tight drop-shadow-lg">
         Featured Properties
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {data.map((p) => (
           <div
             key={p._id}
-            className="group bg-gradient-to-br from-yellow-50 via-blue-50 to-yellow-100 rounded-2xl shadow-xl overflow-hidden flex flex-col border border-yellow-200 hover:scale-105 hover:shadow-2xl transition-transform duration-300 relative"
+            className={`relative bg-gradient-to-br from-blue-50 via-white to-red-50 rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-blue-400`}
           >
-            {p.image && (
-              <div className="relative w-full h-44 overflow-hidden">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
-                  loading="lazy"
-                />
-                <span className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold shadow-lg ${p.available ? 'bg-yellow-400 text-blue-900' : 'bg-blue-300 text-yellow-900'}`}>{p.available ? "Available" : "Not Available"}</span>
+            {/* Property Image Container */}
+            <div className="relative overflow-hidden">
+              <img
+                src={p.image}
+                alt={p.title}
+                width={300}
+                height={300}
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              {/* Like Icon Overlay (static, design only) */}
+              <div className="absolute top-3 right-3 flex flex-col gap-2">
+                <span className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-md text-blue-500">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </span>
               </div>
-            )}
-            <div className="p-5 flex-1 flex flex-col">
-              <h3 className="text-lg font-extrabold text-blue-800 mb-1 truncate" title={p.title}>{p.title}</h3>
-              <div className="text-yellow-700 font-bold text-lg mb-1">${p.price}</div>
-              <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block"><circle cx="8" cy="8" r="7" /><path d="M8 4v4l3 2" /></svg>
-                <span>Rooms: {p.rooms}</span>
-              </div>
-              <Link href={`/properties/${p._id}`}
-                className="mt-auto px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white rounded-full shadow font-semibold tracking-wide transition-all duration-200"
+            </div>
+
+            {/* Property Information */}
+            <div className="p-4">
+              {/* Property Name */}
+              <h3 className="text-blue-900 font-semibold text-lg mb-2 line-clamp-2 text-center">
+                {p.title}
+              </h3>
+              {/* Price */}
+              <p className="text-blue-700 font-bold text-xl mb-3 text-center">
+                ${p.price || '0.00'}
+              </p>
+              {/* View Details Button */}
+              <Link
+                href={`/properties/${p._id}`}
+                className="w-full bg-gradient-to-r from-blue-500 to-yellow-400 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 hover:to-yellow-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center block shadow"
               >
-                View Details
+                VIEW DETAILS
               </Link>
             </div>
           </div>
