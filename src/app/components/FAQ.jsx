@@ -27,15 +27,24 @@ export default function FAQ() {
   ];
 
   return (
-    <section className="max-w-2xl mx-auto my-12 p-6 bg-white rounded shadow">
-      <h2 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
-      <div className="space-y-4">
+    <section className="max-w-5xl mx-auto my-16 px-4 py-10 bg-gradient-to-br from-blue-50 via-yellow-50 to-blue-100 rounded-3xl shadow-xl">
+      <h2 className="text-4xl font-extrabold text-center text-blue-800 mb-10 drop-shadow-lg tracking-tight">
+        Frequently Asked Questions
+      </h2>
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
         {faqs.map((faq, idx) => (
-          <details key={idx} className="border rounded group">
-            <summary className="cursor-pointer py-3 px-4 font-semibold text-lg bg-gray-50 group-open:bg-blue-50 group-open:text-blue-700 transition">
+          <details
+            key={idx}
+            className="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 group hover:shadow-2xl transition duration-300"
+            open={idx === 0}
+          >
+            <summary className="cursor-pointer py-2 px-3 font-semibold text-lg bg-gray-50 rounded-xl group-open:bg-blue-50 group-open:text-blue-700 transition flex items-center gap-2">
+              <span className="inline-block w-2 h-2 bg-yellow-400 rounded-full"></span>
               {faq.question}
             </summary>
-            <div className="px-4 pb-4 text-gray-700">{faq.answer}</div>
+            <div className="px-3 pt-3 text-gray-700 leading-relaxed">
+              {faq.answer}
+            </div>
           </details>
         ))}
       </div>

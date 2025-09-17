@@ -3,6 +3,7 @@ import Hero from "./components/hero";
 import Features from "./components/Features";
 import FAQ from "./components/FAQ";
 import CTA from "./components/CTA";
+import Testimonials from "./components/Testimonials";
 
 export default function Home() {
   return (
@@ -10,7 +11,8 @@ export default function Home() {
       <Hero />
       <PropertiesCardListClient />
       <Features />
-      <FAQ/>
+      <Testimonials />
+      <FAQ />
       <CTA />
     </main>
   )
