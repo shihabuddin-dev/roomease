@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**RoomEase**
+RoomEase is a modern property booking platform built with Next.js, MongoDB, and Tailwind CSS. It allows users to browse, search, and book properties, manage bookings, and handle authentication securely.
 
 **Live Website:** [https://roomease-sage.vercel.app/](https://roomease-sage.vercel.app/)
 
