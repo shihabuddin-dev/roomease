@@ -15,22 +15,19 @@ export default function PropertyDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const { data: session } = useSession();
+  const [alreadyBooked, setAlreadyBooked] = useState(false);
 
   useEffect(() => {
     async function fetchProperty() {
       setLoading(true);
       setError("");
-      console.log("Fetching property with id:", id);
       try {
         const res = await fetch(`/api/properties/${id}`);
-        console.log("API response status:", res.status);
         const data = await res.json();
-        console.log("API response data:", data);
         if (!data.success) throw new Error(data.error || "Failed to fetch property");
         setProperty(data.property);
       } catch (err) {
         setError(err.message);
-        console.error("Error fetching property:", err);
       } finally {
         setLoading(false);
       }
@@ -38,6 +35,20 @@ export default function PropertyDetailsPage() {
     if (id) fetchProperty();
     else console.warn("No property id found in params.");
   }, [id]);
+
+  useEffect(() => {
+    async function checkAlreadyBooked() {
+      if (!session || !session.user || !id) return setAlreadyBooked(false);
+      try {
+        const res = await fetch(`/api/bookings/check?propertyId=${id}&userEmail=${session.user.email}`);
+        const data = await res.json();
+        setAlreadyBooked(data.booked === true);
+      } catch {
+        setAlreadyBooked(false);
+      }
+    }
+    checkAlreadyBooked();
+  }, [session, id]);
 
   if (loading) return <div className="p-8">Loading...</div>;
   if (error) return (
@@ -134,8 +145,10 @@ export default function PropertyDetailsPage() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <button
-                  className="flex-1 bg-blue-600 border-2 border-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 hover:border-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center"
+                  className={`flex-1 bg-blue-600 border-2 border-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center ${alreadyBooked ? 'opacity-60 cursor-not-allowed' : 'hover:bg-blue-700 hover:border-blue-700'}`}
+                  disabled={alreadyBooked}
                   onClick={async () => {
+                    if (alreadyBooked) return;
                     if (!session || !session.user) {
                       Swal.fire({
                         icon: 'warning',
@@ -170,6 +183,7 @@ export default function PropertyDetailsPage() {
                           showConfirmButton: true,
                           customClass: { popup: 'rounded-2xl p-6' },
                         });
+                        setAlreadyBooked(true);
                       } else {
                         throw new Error(data.error || 'Booking failed');
                       }
@@ -184,7 +198,7 @@ export default function PropertyDetailsPage() {
                     }
                   }}
                 >
-                  Book Now
+                  {alreadyBooked ? 'Booked' : 'Book Now'}
                 </button>
                 <button
                   className="flex-1 bg-white border-2 border-blue-600 text-blue-600 font-semibold py-2 px-6 rounded-lg hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center"
