@@ -12,8 +12,8 @@ export default function Home() {
       <PropertiesCardListClient />
       <Features />
       <Testimonials />
-      <FAQ />
       <CTA />
+      <FAQ />
     </main>
   )
 }

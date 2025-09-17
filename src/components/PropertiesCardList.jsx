@@ -2,10 +2,12 @@
 import Loading from "@/app/loading";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 // import { useState } from "react";
 const queryClient = new QueryClient();
 
 function PropertiesCardListInner() {
+  const pathname = usePathname();
   const { data, isLoading, error } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
@@ -19,13 +21,18 @@ function PropertiesCardListInner() {
   if (isLoading) return <Loading />;
   if (error) return <div className="p-8 text-red-600">{error.message}</div>;
 
+  // Conditional: if /browse-listing, show all, else slice
+  const isBrowseListing = pathname === "/browse-listing";
+  const propertiesToShow = isBrowseListing ? data : data.slice(0, 4);
+  const heading = isBrowseListing ? "All Properties" : "Featured Properties";
+
   return (
     <section className="py-10 px-4 mt-12 max-w-7xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-800 mb-16 tracking-tight drop-shadow-lg">
-        Featured Properties
+        {heading}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {data.map((p) => (
+        {propertiesToShow.map((p) => (
           <div
             key={p._id}
             className={`relative bg-gradient-to-br from-blue-50 via-white to-red-50 rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-blue-400`}
@@ -36,8 +43,8 @@ function PropertiesCardListInner() {
                 src={p.image}
                 alt={p.title}
                 width={300}
-                height={300}
-                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                height={250}
+                className="w-full h-50 object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
               {/* Like Icon Overlay (static, design only) */}
