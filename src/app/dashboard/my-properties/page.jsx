@@ -1,14 +1,15 @@
 
 "use client";
-import Loading from "@/app/loading";
-import { useQuery, QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
-import Swal from 'sweetalert2';
 
-const queryClient = new QueryClient();
+import Loading from "@/app/loading";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import Swal from "sweetalert2";
 
 function PropertiesTable() {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
   const { data, isLoading, error } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
@@ -66,10 +67,10 @@ function PropertiesTable() {
       ) : error ? (
         <div className="text-red-600">{error.message}</div>
       ) : (
-        <div className="overflow-x-auto bg-gradient-to-br from-yellow-50 via-blue-50 to-yellow-100 rounded-md shadow-2xl p-4">
+        <div className="overflow-x-auto bg-white/60 rounded-md shadow-2xl p-4">
           <table className="min-w-full bg-white/90 rounded-md shadow-xl border-separate border-spacing-0 overflow-hidden">
             <thead>
-              <tr className="bg-gradient-to-r from-yellow-300 via-blue-100 to-yellow-200 text-blue-900 sticky top-0 z-10 rounded-t-md">
+              <tr className="bg-blue-50 text-blue-900 sticky top-0 z-10 rounded-t-md">
                 <th className="px-6 py-3 font-bold text-lg border-b border-yellow-300">Title</th>
                 <th className="px-6 py-3 font-bold text-lg border-b border-yellow-300">City</th>
                 <th className="px-6 py-3 font-bold text-lg border-b border-yellow-300">Price</th>
@@ -95,13 +96,16 @@ function PropertiesTable() {
                   </td>
                   <td className="px-6 py-3 border-b border-yellow-200 text-center rounded-r-md">
                     <div className="flex gap-2 justify-center">
-
-                      <Link href={`/dashboard/my-properties/edit/${p._id}`} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-blue-900 rounded-full shadow text-xs font-semibold transition" title="Update">
-                        Update
-                      </Link>
-                      <button onClick={() => handleDelete(p._id)} className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-full shadow text-xs font-semibold transition" title="Delete">
-                        Delete
-                      </button>
+                      {session?.user?.email === p.email && (
+                        <>
+                          <Link href={`/dashboard/my-properties/edit/${p._id}`} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-blue-900 rounded-full shadow text-xs font-semibold transition" title="Update">
+                            Update
+                          </Link>
+                          <button onClick={() => handleDelete(p._id)} className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-full shadow text-xs font-semibold transition" title="Delete">
+                            Delete
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -116,8 +120,6 @@ function PropertiesTable() {
 
 export default function MyPropertiesPage() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <PropertiesTable />
-    </QueryClientProvider>
+    <PropertiesTable />
   );
 }

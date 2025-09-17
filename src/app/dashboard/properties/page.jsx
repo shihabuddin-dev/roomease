@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function PropertiesPage() {
+  const { data: session } = useSession();
   const [form, setForm] = useState({
     title: "",
     address: "",
@@ -12,6 +14,7 @@ export default function PropertiesPage() {
     image: "",
     rooms: 1,
     available: true,
+    email: session?.user?.email || "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,6 +25,7 @@ export default function PropertiesPage() {
     setForm((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
+      email: session?.user?.email || "",
     }));
   };
 
@@ -34,7 +38,7 @@ export default function PropertiesPage() {
       const res = await fetch("/api/properties", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, email: session?.user?.email || "" }),
       });
       const result = await res.json();
       if (result.success) {
@@ -48,6 +52,7 @@ export default function PropertiesPage() {
           image: "",
           rooms: 1,
           available: true,
+          email: session?.user?.email || "",
         });
       } else {
         toast.error(result.error || "Failed to add property.");
